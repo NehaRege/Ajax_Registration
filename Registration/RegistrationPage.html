@@ -1,0 +1,675 @@
+<!doctype html>
+<html lang="en-us">
+<head>
+	<title>Registration</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<style>
+
+	.container {
+		border: 1px solid black;
+		padding-top: 5px;
+		padding-left: 40px;	
+		padding-bottom: 25px;	
+	}
+
+	#container b {
+		padding-left: 700px;
+	}
+
+	.topDesign {
+		padding-left: 5px;
+	}
+
+	label {
+		text-indent: right;
+		text-align: right;
+		padding-right: 10px;
+		float: left;
+		width: 300px;
+	}
+
+	input {
+  		width: 300px;
+	}
+
+
+	.pswdInfo {
+		position: absolute;
+		display: none;
+		border: 2px solid black;
+		left: 860px;
+		top:40px;
+		box-shadow:10px 10px 5px #ccc;
+	}
+
+	#pswdInfo h4 {
+		padding: 5px;
+		background-color: black;
+		color: white;
+	}
+
+	#pswdInfo ul {
+		list-style: none;
+		list-style-image: "cross.png";
+		style="list-style: none; padding: 0 0 0 10px;"
+	}
+
+
+
+	.show {
+		display: block;
+	}
+
+	.hide {
+		display: none;
+	}
+
+	.invalid {
+		background: url(invalid.png) no-repeat 0 50%;
+		padding-left: 28px;
+		padding-bottom: 8px;
+	}
+
+	.valid {
+		background: url(valid.png) no-repeat 0 50%;
+		padding-left: 28px;
+		padding-bottom: 8px;
+
+	}
+
+	</style>
+
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"> </script>
+
+	<!-- https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js -->
+
+	<script>
+
+	var isLow=false;
+	var isUpp=false;
+	var isNum=false;
+	var isSpecial=false;
+	var isAlpha=false;
+	var isPassDiff=false;
+	var isLength=false;
+
+	var isEmail=false;
+	var isMobile=false;
+
+	var isAns=false;
+
+	var isAns1=false;
+	var isAns2=false;
+
+	var isQuestion=false;
+
+	var isUserId=false;
+
+	var isAddress=false;
+
+	function checkUserId() {
+		var id=document.getElementById("userId").value;
+
+		if(id.length==0) {
+			alert('Please enter a User Id');
+			document.getElementById("userId").focus();
+			isUserId=false;
+
+		} else {
+			isUserId=true;
+
+
+		}
+	}
+
+	function showInfo() {
+		checkUserId();
+		document.getElementById("pswdInfo").classList.toggle("show");
+	}
+
+	function hideInfo() {
+		document.getElementById("pswdInfo").classList.toggle("hide");
+	}
+
+	
+
+	function validatePasswordReqs() {
+
+		var pswd = document.getElementById("pswd").value;
+
+		var lowerChar = new RegExp('[a-z]');
+		var upperChar = new RegExp('[A-Z]');
+		var numericVal = new RegExp('[0-9]');
+		var specialChar = new RegExp('[!,@,#,$,%,^,&,*,_,-]');
+		// var alphaChar = new RegExp('\w{4}');
+
+		var userId = document.getElementById("userId").value;
+
+		var strength=0;
+
+		// var isLow=false;
+		// var isUpp=false;
+		// var isNum=false;
+		// var isSpecial=false;
+		// var isAlpha=false;
+		// var notMatch=false;
+		// var isLength=false;
+
+		if(pswd.length>=7 && pswd.length<=20) {
+			document.getElementById("length").className="valid";
+			strength++;
+			// isLength=true;
+
+		} else {
+			document.getElementById("length").className="invalid";
+			// isLength=false;
+
+		}
+
+		if(pswd.match(lowerChar)) {
+			document.getElementById("lower").className="valid";
+			strength++;
+			// isLow=true;
+		} else {
+			document.getElementById("lower").className="invalid";
+			// isLow=false;
+		}
+
+		if(pswd.match(upperChar)) {
+			document.getElementById("upper").className="valid";
+			strength++;
+			// isUpp=true;
+		} else {
+			document.getElementById("upper").className="invalid";
+			// isUpp=false;
+		}
+
+		if(pswd.match(numericVal)) {
+			document.getElementById("number").className="valid";
+			strength++;
+			// isNum=true;
+		} else {
+			document.getElementById("number").className="invalid";
+			// isNum=false
+		}
+
+		if(pswd.match(specialChar)) {
+			document.getElementById("special").className="valid";
+			strength++;
+			// isSpecial=true;
+		} else {
+			document.getElementById("special").className="invalid";
+			// isSpecial=false;
+		}
+
+		if(pswd.match(/\w{4}/)) {
+			document.getElementById("alpha").className="valid";
+			strength++;
+			// isAlpha=true;
+		} else {
+			document.getElementById("alpha").className="invalid";
+			// isAlpha=false;
+		}
+
+		if(pswd != userId) {
+			document.getElementById("notSame").className="valid";
+			strength++;
+			// notMatch=true;
+		} else {
+			document.getElementById("notSame").className="invalid";
+			// notMatch=false;
+		}
+
+		document.getElementById("passStrength").value=strength;
+	}
+
+	
+
+	function checkPassword() {
+
+		var pswd = document.getElementById("pswd").value;
+
+		var lowerChar = new RegExp('[a-z]');
+		var upperChar = new RegExp('[A-Z]');
+		var numericVal = new RegExp('[0-9]');
+		var specialChar = new RegExp('[!,@,#,$,%,^,&,*,_,-]');
+		// var alphaChar = new RegExp('\w{4}');
+
+		var userId = document.getElementById("userId").value;
+
+		// var isLow=false;
+		// var isUpp=false;
+		// var isNum=false;
+		// var isSpecial=false;
+		// var isAlpha=false;
+		// var notMatch=false;
+		// var isLength=false;
+
+		if(pswd.length>=7 && pswd.length<=20) {
+			// document.getElementById("length").className="valid";
+			isLength=true;
+
+		} else {
+			// document.getElementById("length").className="invalid";
+			isLength=false;
+
+		}
+
+		if(pswd.match(lowerChar)) {
+			// document.getElementById("lower").className="valid";
+			isLow=true;
+		} else {
+			// document.getElementById("lower").className="invalid";
+			isLow=false;
+		}
+
+		if(pswd.match(upperChar)) {
+			// document.getElementById("upper").className="valid";
+			isUpp=true;
+		} else {
+			// document.getElementById("upper").className="invalid";
+			isUpp=false;
+		}
+
+		if(pswd.match(numericVal)) {
+			// document.getElementById("number").className="valid";
+			isNum=true;
+		} else {
+			// document.getElementById("number").className="invalid";
+			isNum=false
+		}
+
+		if(pswd.match(specialChar)) {
+			// document.getElementById("special").className="valid";
+			isSpecial=true;
+		} else {
+			// document.getElementById("special").className="invalid";
+			isSpecial=false;
+		}
+
+		if(pswd.match(/\w{4}/)) {
+			// document.getElementById("alpha").className="valid";
+			isAlpha=true;
+		} else {
+			// document.getElementById("alpha").className="invalid";
+			isAlpha=false;
+			// isAlpha=true;
+		}
+
+		if(pswd != userId) {
+			// document.getElementById("notSame").className="valid";
+			isPassDiff=true;
+		} else {
+			// document.getElementById("notSame").className="invalid";
+			isPassDiff=false;
+		}
+
+		// if(isLength && isNum && isSpecial && isUpp && isLow && notMatch && isAlpha) {
+		// 	return true;
+		// } else {
+		// 	alert('Password requirements not met!');
+		// 	document.getElementById("pswd").focus();
+		// 	return false;
+		// }
+
+		
+
+	}
+
+	function validatePassword() {
+		checkPassword();
+		if(isLength && isNum && isSpecial && isUpp && isLow && isPassDiff && isAlpha) {
+			return true;
+		} else {
+			alert('Password requirements not met!');
+			document.getElementById("pswd").focus();
+			return false;
+
+		}
+
+
+	}
+
+	
+
+	function verifyPassword() {
+		if( (document.getElementById("pswd").value) != (document.getElementById("verifyPswd").value) ) {
+			alert('Passwords do not match!');
+			document.getElementById("verifyPswd").focus();
+			// document.getElementById("verifyPswd").value.clear();
+			// document.getElementById("verifyPswd").value.clear();
+
+		}
+	}
+
+	function checkEmail() {
+		if(document.getElementById("email").value == (document.getElementById("verifyEmail").value)) {
+			isEmail=true;
+			
+			// return false;
+		} else {
+			isEmail=false;
+			alert('Emails do not match');
+			// document.getElementById("verifyEmail").value="";
+
+			document.getElementById("verifyEmail").focus();
+			// return true;
+		}
+	}
+
+	function validateMobile() {
+		var mobile = document.getElementById("mobile");
+
+		if(mobile.value.length == 10 && mobile.value.match('[0,9]')) {
+			console.log(mobile.value);
+			isMobile=true;
+			// return true;
+		} else {
+			isMobile=false;
+			alert('Please enter a valid mobile number: [0-9]');
+			mobile.focus();
+			// return false;
+		}
+	}
+
+	function validateQuestions() {
+		var q1 = document.getElementById("q1");
+		var q2 = document.getElementById("q2");
+
+		var sel1=q1.options[q1.selectedIndex].text;
+		var sel2=q2.options[q2.selectedIndex].text;
+
+		if(sel1 == sel2) {
+			isQuestion=false;
+			alert('Security questions cannot be the same');
+			q2.focus();
+		} else {
+			isQuestion=true;
+		}
+	}
+
+	function checkAns1() {
+		a1=document.getElementById("ans1");
+
+		if(a1.value.length==0) {
+			isAns1=false;
+		} else {
+			isAns1=true;
+		}
+
+	}
+
+	function checkAns2() {
+		a2=document.getElementById("ans2");
+
+		if(a2.value.length==0) {
+			isAns2=false;
+		} else{
+			isAns2=true;
+		}
+
+	}
+
+	function checkAns() {
+		// checkAns1();
+		// checkAns2();
+		// verifyEmail();
+		a1=document.getElementById("ans1");
+		a2=document.getElementById("ans2");
+
+		if(a1.value.length==0) {
+			isAns=false;
+			alert('Please enter an answer');
+			a1.focus();
+
+		} else if(a2.value.length==0) {
+			isAns=false;
+			alert('Please enter an answer for question 2');
+			a2.focus();
+		} else {
+			isAns=true;
+
+		}
+	}
+
+	function checkAddress() {
+		var add=document.getElementById("address");
+
+		if(add.value != 0) {
+			isAddress=true;
+		} else {
+			isAddress=false;
+			add.focus();
+		}
+	}
+
+	// function saveInfo() {
+
+	// 	var q1 = document.getElementById("q1");
+	// 	var q2 = document.getElementById("q2");
+
+	// 	var sel1=q1.options[q1.selectedIndex].text;
+	// 	var sel2=q2.options[q2.selectedIndex].text;
+
+
+	// 	if(typeof(Storage) !== "undefined") {
+	// 		localStorage.setItem("UserId", document.getElementById("userId").value);
+	// 		localStorage.setItem("Email", document.getElementById("email").value);
+	// 		// localStorage.setItem("Password", document.getElementById("pswd").value);
+	// 		localStorage.setItem("Mobile", document.getElementById("mobile").value);
+	// 		localStorage.setItem("Address", document.getElementById("address").value);
+	// 		localStorage.setItem(sel1, document.getElementById("ans1").value);
+	// 		localStorage.setItem(sel2, document.getElementById("ans2").value);
+	// 		localStorage.setItem("Interest", document.getElementById("interest").value);
+	// 	} else {
+	// 		console.log("Local Storage not supported");
+	// 	}
+
+
+	// }
+
+
+	function saveToDatabse() {
+
+		var userId = $('#userId').val();
+		var pswd = $('#pswd').val();
+		var email = $('#email').val();
+		var mobile = $('#mobile').val();
+		var address = $('#address').val();
+		var interest = $('#interest').val();
+		var q1 = $('#q1 option:selected').text();
+		var q2 = $('#q2 option:selected').text();
+		var ans1 = $('#ans1').val();
+		var ans2 = $('#ans2').val();
+
+		var userData = 'userId=' +userId+ '&pswd=' +pswd+ '&email=' +email+ '&mobile=' +mobile+ '&address=' +address+ '&q1=' +q1+ '&q2=' +q2+ '&ans1=' +ans1+ '&ans2=' +ans2+ '&interest=' +interest;
+
+		$.ajax({
+			type: "POST",
+			url: "http://localhost/Registration/webServer.php",
+			data: userData,
+			success: function(result) {
+				alert(result);
+			}
+			// success: function() {
+			// 	alert("Data: ( " +userData+ " ) :has been saved to the backend database!");
+			// }
+		});
+
+		
+		
+
+
+
+
+
+	}
+
+	function submitForm() {
+		// saveInfo();
+
+		checkAns2();
+		checkAns1();
+
+		// console.log("userId = "+isUserId);
+		// console.log("pass= "+validatePassword());
+		// console.log("mob= "+isMobile);
+		// console.log("email= "+isEmail);
+		// console.log("ans1= "+isAns1);
+		// console.log("ans2= "+isAns2);
+		// console.log("ques= "+isQuestion);
+
+		var a1=document.getElementById("ans1").value;
+		var a2=document.getElementById("ans2").value;
+
+		var interest=document.getElementById("interest").value;
+
+		var address=document.getElementById("address").value;
+
+		// console.log("l1= "+a1);
+		// console.log("l2= "+a2);
+
+
+		if(isUserId && validatePassword() && isEmail && isMobile && isQuestion && a1.length!=0 && a2.length!=0 && address.length!=0 && interest.length!=0) {
+			saveToDatabse();
+			// alert('Success!!!!');
+			
+		} else {
+			alert('Registration failed!!!!');
+			document.getElementById("userId").focus();
+
+		}
+
+
+
+	}
+
+	function reload() {
+		document.getElementById("passStrength").value=0;
+		document.getElementById("userId").focus();
+		window.href = "RegistrationPage.html";
+
+
+	}
+
+
+	</script>
+
+</head>
+
+<body>
+
+	<div class="container">
+		<form name="regForm" class="form" action="webServer.php" method="post">
+
+			<div class="topDesign"> 
+				<h2 style="background:url(registration_icon.png) no-repeat;padding-left:30px"> Registration Form </h2>
+		___________________________________________________________________________________________________________________________________________________
+
+			</div>
+			
+			<br>
+
+			<label> User ID: </label> &nbsp; 
+			<input type="text" id="userId" autofocus>
+
+			<br><br>
+
+			<label> Password: </label> &nbsp; 
+			<input type="password" id="pswd" onFocus="showInfo()" onBlur="hideInfo()" onKeyUp="validatePasswordReqs()" minlength=7 maxlength=20 required>
+
+			<progress id="passStrength" max="7" value="0" style="width=1000em;height=10px;background-color: #f3f3f3;border-radius:5px">
+
+			</progress>
+
+			<br><br>
+
+
+			<div class="pswdInfo" id="pswdInfo" onClick="hideInfo()">
+				<h4>Password must meet the following requirements:</h4>
+				<ul>
+					<li id="length" class="invalid"> Between 7-20 characters </li>
+					<li id="upper" class="invalid"> Atleast 1 upper-case letter </li>
+					<li id="lower" class="invalid"> Atleast 1 lower-case letter </li>
+					<li id="number" class="invalid"> Atleast 1 number </li>
+					<li id="special" class="invalid"> Atleast 1 special character </li>
+					<li id="alpha" class="invalid"> Atleast 4 alpha characters </li>
+					<li id="notSame" class="invalid"> Password cannot be same as user ID </li>
+				</ul>
+			</div>
+
+			<label> Verify Password: </label> &nbsp; <input type="password" id="verifyPswd" minlength=7 maxlength=20 onClick="validatePassword()" required>
+
+			<br><br>
+
+			<label> Email Address: </label> &nbsp; <input type="email" id="email" onFocus="verifyPassword()">
+
+			<br><br>
+
+			<label> Verify Email Address: </label> &nbsp; <input type="email" id="verifyEmail" required>
+
+			<br><br>
+
+			<label> Security Question 1: </label> &nbsp; 
+
+			<select id="q1">
+				<option  value="1">First pet name?</option>
+				<option value="2">City you were born in?</option>
+				<option value="3">Favourite color?</option>
+				<option value="4">Name of your first car?</option>		
+				<option value="5">In what year was your father born?</option>
+			</select>
+
+			<br><br>
+
+			<label>Security Answer 1: </label> &nbsp; <input type="text" id="ans1" onFocus="checkEmail()">
+
+			<br><br>
+
+			<label> Security Question 2: </label> &nbsp; 
+
+			<select id="q2">
+				<option  value="1">First pet name?</option>
+				<option value="2">City you were born in?</option>
+				<option value="3">Favourite color?</option>
+				<option value="4">Name of your first car?</option>		
+				<option value="5">In what year was your father born?</option>
+			</select>
+
+			<br><br>
+
+			<label>Security Answer 2: </label> &nbsp; <input type="text" id="ans2" onFocus="validateQuestions()" >
+
+			<br><br>
+
+			<label style="color:blue"> Mobile: </label> &nbsp; 
+			<input type="tel" id="mobile" pattern="\d{10}" onFocus="checkAns()">
+
+			<br><br>
+
+			<label style="color:blue"> Address: </label> &nbsp; 
+			<textarea id="address" rows="5" cols="20" onFocus="validateMobile()" required> </textarea>
+
+			<br><br>
+
+			<label> Areas you may be interested in, please select one or more: </label>
+			<textarea id="interest" rows="5" cols="20" onFocus="checkAddress()">	</textarea>
+
+			<br><br>
+
+			<div class="b">
+
+			<input type="button" value="Register" onClick="submitForm()" id="registerButton"> &nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="reset" value="Cancel" id="cancelButton" onClick="reload()" required>
+
+		</div>
+
+		</form>
+
+	</div>
+
+</body>
+
+</html>
